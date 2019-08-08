@@ -1,0 +1,52 @@
+.container {
+  margin: 5rem auto;
+}
+
+.container label {
+  width: 70%;
+  font-size: 1.5rem;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container .input {
+  width: 50%;
+  height: 4rem;
+  line-height: 4rem;
+  box-sizing: border-box;
+  border: 1px solid rgb(174, 176, 179);
+  border-bottom: none;
+  padding: 1rem 0.8rem;
+}
+
+.container label .last {
+  border-bottom: 1px solid rgb(174, 176, 179);
+}
+
+.container label em {
+  position: absolute;
+  left: 77%;
+  top: 1rem;
+  color: red;
+  font-size: 1.2rem;
+}
+
+.button {
+  margin: auto;
+  width: 35%;
+  background-color: #0f88eb;
+  text-align: center;
+  cursor: pointer;
+  height: 4rem;
+  line-height: 4rem;
+  font-size: 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  color: #ffffff;
+}
+
+.button i {
+  margin-left: 5px;
+  font-size: 2rem;
+}

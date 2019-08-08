@@ -1,3 +1,63 @@
 html {
-  font-size: 20px;
+  font-size: 10px;
+}
+
+html,
+body,
+#container {
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  color: #555555;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", Arial, sans-serif;
+  background-color: #f7fafc;
+}
+
+#container {
+  background-image: url(../../../static/picture/homeBackground.png);
+  background-size: cover;
+  text-align: center;
+  padding-top: 10rem;
+  box-sizing: border-box;
+}
+
+#container h1 {
+  font-size: 7rem;
+  font-weight: 500;
+  color: rgb(28, 130, 226);
+}
+#container h2 {
+  font-size: 1.8rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+#container .link-list {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #555555;
+  font-weight: 500;
+  opacity: 0.7; /* 让没有点击的那个没有那么显眼 */
+}
+
+.link {
+  margin-right: 2rem;
+}
+
+.link-list .router-link-active {
+  color: #0f88eb;
+  opacity: 1;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid;
 }

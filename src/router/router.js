@@ -1,14 +1,17 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "../components/Home/Home.vue";
+import MailLists from "./../components/AddressBook/MailLists.vue";
+import Personal from "../components/AddressBook/Personal.vue";
+import AddInfo from "../components/AddressBook/AddInfo.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/home"
+      redirect: "/home/login"
     },
     {
       path: "/home",
@@ -29,15 +32,44 @@ export default new Router({
           component: () => import("../components/Home/Login.vue")
         }
       ]
+    },
+    {
+      path: "/address-book",
+      name: "addressBook",
+      component: () => import("../components/AddressBook/AddressBook.vue"),
+      redirect: "/address-book/mailLists",
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: "mailLists",
+          name: "mailLists",
+          component: MailLists
+        },
+        {
+          path: "addInfo",
+          name: "addInfo",
+          component: AddInfo
+        },
+        {
+          path: "personal",
+          name: "personal",
+          component: Personal
+        }
+      ]
     }
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () =>
-    //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-    // }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  /* if (to.meta.requiresAuth) {
+    // 如果需要进入的页面需要登录验证
+    // TODO:判断是否登录，如果已经登录则正常跳转
+    // 否则跳转到登录界面
+    console.log("导航守卫有登录验证功能待完善");
+  } */
+  next();
+});
+
+export default router;

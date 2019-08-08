@@ -4,8 +4,6 @@
 
 这个项目用来练手，熟练一下自己对 vue 的使用。
 
-这里是参照 [windlany](https://github.com/windlany) 小姐姐的项目来改的，在原有项目的基础上也增加了一些小功能，因为自己临时下手也不知道写啥好，所以就在 github 上找到了这个项目，决定自己也动手实现一个简单的通讯录，也算是加深一下自己对 vue 全家桶的认识。
-
 学习 vue 最好的地方：[官方文档，没有之一。](https://cn.vuejs.org/v2/guide/installation.html)
 
 # 技术栈
