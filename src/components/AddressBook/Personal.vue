@@ -27,17 +27,31 @@ export default {
   data() {
     return {
       isEdit: false,
-      phoneNumber: "123"
+      temporaryNickName: "",
+      temporaryPhoneNumber: "",
+      setNickName: false,
+      setPhoneNumber: false
     };
   },
   computed: {
-    // ...mapState("addressBook", ["nickName", "phoneNumber"])
     nickName: {
       get() {
-        return this.$store.state.nickName;
+        return this.$store.state.addressBook.nickName;
       },
       set(value) {
+        this.setNickName = true;
         console.log(1111, value);
+        this.temporaryNickName = value;
+      }
+    },
+    phoneNumber: {
+      get() {
+        return this.$store.state.addressBook.phoneNumber;
+      },
+      set(value) {
+        this.setPhoneNumber = true;
+        console.log(2, value);
+        this.temporaryPhoneNumber = value;
       }
     }
   },
@@ -49,15 +63,19 @@ export default {
     },
     saveInfos() {
       this.isEdit = false;
-      console.log(this.nickName);
-      // this.changePersonalInfoAsync({
-      //   nickName: this.nickName,
-      //   phoneNumber: this.phoneNumber
-      // })
-      this.$store.commit("addressBook/changePersonalInfo", {
-        nickName: this.nickName,
-        phoneNumber: this.phoneNumber
+      console.log(this.temporaryNickName);
+      this.changePersonalInfoAsync({
+        nickName: this.setNickName ? this.temporaryNickName : this.nickName,
+        phoneNumber: this.setPhoneNumber
+          ? this.temporaryPhoneNumber
+          : this.phoneNumber
       });
+      // this.$store.commit("addressBook/changePersonalInfo", {
+      //   nickName: this.setNickName ? this.temporaryNickName : this.nickName,
+      //   phoneNumber: this.setPhoneNumber
+      //     ? this.temporaryPhoneNumber
+      //     : this.phoneNumber
+      // });
     },
     back() {
       this.isEdit = false;
