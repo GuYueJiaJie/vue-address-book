@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+import Mock from "mockjs";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -77,7 +78,8 @@ export default {
       this.phone = "";
     },
     addItem() {
-      let itemId = Date.now();
+      let itemId = Mock.mock("@guid");
+      console.log(itemId);
       let item = {
         name: this.name,
         phone: this.phone,
