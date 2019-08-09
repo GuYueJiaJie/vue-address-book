@@ -52,6 +52,9 @@ export default {
   methods: {
     logOut() {
       this.$router.replace({ path: "/home/login" });
+      localStorage.removeItem("token");
+      // 因为重新登录会重新从服务器获取信息并重新设置vuex，所以在这里删除sessionStorage中的state
+      sessionStorage.removeItem("state");
     }
   },
   mounted() {
@@ -151,7 +154,8 @@ export default {
   top: 12vh;
   right: 0;
   width: 75%;
-  height: 90%;
+  height: 86vh;
+  bottom: 2%;
 }
 .log-out {
   position: absolute;

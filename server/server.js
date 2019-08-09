@@ -1,18 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const cors = require("./CrossOrigin/cors");
 const userInfo = require("./userInfo/userInfo");
+const tokenCheck = require("./api/token");
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(function(req, res, next) {
   // 处理来自非简单请求的预检请求
   if (req.method.toLowerCase() === "options") {
     let origin = req.get("Origin");
-    console.log(`收到了来自${origin}的预检请求`);
     let customHeader = req.get("Access-Control-Request-Headers");
     if (cors.isTrustyOrigin(origin)) {
       res.set({
@@ -48,7 +50,7 @@ app.post("/user/login", function(req, res) {
       message: "登陆成功",
       personalData: loginInfo.personalData,
       username: req.body.username,
-      token: req.query
+      token: tokenCheck.setToken(req.body)
     });
   } else {
     res.status(200).json({
@@ -69,6 +71,30 @@ app.post("/user/register", function(req, res) {
       success: false,
       message: "注册失败"
     });
+  }
+});
+
+// 登录状态验证
+app.use(function(req, res, next) {
+  let token =
+    req.get("Authorization") ||
+    req.body.token ||
+    req.cookies.token ||
+    req.get("x-access-token");
+  // 判断有没有token,存在就判断是否过期
+  if (token) {
+    let passTime = tokenCheck.judgeTokenIsOverdue(token);
+    if (!passTime) {
+      console.log("token没有过期");
+      next();
+    } else {
+      // 401表示用户视图未经授权访问一个受密码保护的页面，应答中会包含一个WWW-Authenticate头
+      console.log("token过期");
+      res.status(401).end();
+    }
+  } else {
+    console.log("没有token");
+    res.status(401).end();
   }
 });
 

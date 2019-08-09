@@ -4,7 +4,8 @@ const state = {
   items: [],
   username: "",
   nickName: "",
-  phoneNumber: "无"
+  phoneNumber: "无",
+  token: ""
 };
 
 const mutations = {
@@ -29,57 +30,85 @@ const mutations = {
   changePersonalInfo(state, item) {
     state.nickName = item.nickName;
     state.phoneNumber = item.phoneNumber;
+  },
+  setToken(state, token) {
+    state.token = token;
   }
 };
 
 const actions = {
   async addItemAsync({ state, commit }, item) {
-    const result = await axios.post("/api/addContact", {
-      username: state.username,
-      ...item
-    });
-    console.log("result", result);
-    if (result.data.success) {
-      commit("addItem", item);
-    } else {
-      console.error("添加联系人出错");
+    try {
+      const result = await axios.post("/api/addContact", {
+        username: state.username,
+        ...item
+      });
+      console.log("result", result);
+      if (result.data.success) {
+        commit("addItem", item);
+      } else {
+        console.error("添加联系人出错");
+      }
+    } catch (err) {
+      console.error(err);
     }
   },
   async deleteItemAsync({ state, commit }, item) {
-    const result = await axios.post("/api/deleteContact", {
-      username: state.username,
-      id: item.id
-    });
-    console.log("delete result", result);
-    if (result.data.success) {
-      commit("deleteItem", item);
-    } else {
-      console.error("删除联系人出错");
+    try {
+      const result = await axios.post("/api/deleteContact", {
+        username: state.username,
+        id: item.id
+      });
+      console.log("delete result", result);
+      if (result.data.success) {
+        commit("deleteItem", item);
+      } else {
+        console.error("删除联系人出错");
+      }
+    } catch (err) {
+      console.error("删除联系人出错,错误信息为： ", err);
     }
   },
   async changeItemAsync({ state, commit }, item) {
-    const result = await axios.post("/api/changeContact", {
-      username: state.username,
-      ...item
-    });
-    console.log("change result", result);
-    if (result.data.success) {
-      commit("changeItem", item);
-    } else {
-      console.error("删除联系人出错");
+    try {
+      const result = await axios.post("/api/changeContact", {
+        username: state.username,
+        ...item
+      });
+      console.log("change result", result);
+      if (result.data.success) {
+        commit("changeItem", item);
+      } else {
+        console.error("删除联系人出错");
+      }
+    } catch (err) {
+      console.error(err);
     }
   },
   async changePersonalInfoAsync({ state, commit }, item) {
-    const result = await axios.post("/api/changePersonalInfo", {
-      username: state.username,
-      ...item
-    });
-    console.log("change personal info", result);
-    if (result.data.success) {
-      commit("changePersonalInfo", item);
-    } else {
-      console.error("修改个人信息出错");
+    try {
+      const result = await axios.post("/api/changePersonalInfo", {
+        username: state.username,
+        ...item
+      });
+      console.log("change personal info", result);
+      if (result.data.success) {
+        commit("changePersonalInfo", item);
+      } else {
+        console.error("修改个人信息出错");
+      }
+    } catch (err) {
+      console.error(err);
     }
+  },
+  initState({ commit }, item) {
+    commit("setItems", item.personalData.contactLists);
+    commit("changePersonalInfo", {
+      nickName: item.personalData.nickName,
+      phoneNumber: item.personalData.phoneNumber
+    });
+    commit("setUsername", item.username);
+    commit("setToken", item.token);
   }
 };
 

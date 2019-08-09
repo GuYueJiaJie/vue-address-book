@@ -22,13 +22,13 @@
       </label>
     </div>
     <div class="total contact-lists" v-if="hasInfo">
-        <ContactLists
-          v-for="item in latestItems"
-          :key="item.id"
-          :item="item"
-          @change-item="changeItemAsync"
-          @delete-item="deleteItemAsync({id: item.id})"
-        ></ContactLists>
+      <ContactLists
+        v-for="item in latestItems"
+        :key="item.id"
+        :item="item"
+        @change-item="changeItemAsync"
+        @delete-item="deleteItemAsync({id: item.id})"
+      ></ContactLists>
     </div>
     <p class="total no-contact" v-else>没有联系人</p>
   </div>
@@ -60,20 +60,20 @@ export default {
         case "family":
           return this.search
             ? this.fileterLists("family").filter(
-              item => item.name.indexOf(this.search) > -1
-            )
+                item => item.name.indexOf(this.search) > -1
+              )
             : this.fileterLists("family");
         case "friend":
           return this.search
             ? this.fileterLists("friend").filter(
-              item => item.name.indexOf(this.search) > -1
-            )
+                item => item.name.indexOf(this.search) > -1
+              )
             : this.fileterLists("friend");
         case "colleague":
           return this.search
             ? this.fileterLists("colleague").filter(
-              item => item.name.indexOf(this.search) > -1
-            )
+                item => item.name.indexOf(this.search) > -1
+              )
             : this.fileterLists("colleague");
         default:
           return this.search
@@ -99,6 +99,10 @@ export default {
 </script>
 
 <style scoped>
+#mail-lists {
+  height: 100%;
+  overflow: hidden;
+}
 .search {
   width: 80%;
   margin-top: 5%;
@@ -142,5 +146,9 @@ export default {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
+  overflow: auto;
+  white-space: nowrap;
+  max-height: 400px;
+  
 }
 </style>

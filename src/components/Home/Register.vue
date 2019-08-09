@@ -12,6 +12,7 @@
           size="20"
           @blur="verifyUsername"
           autocomplete="off"
+          autofocus
         />
         <em v-show="showmessage.username">*用户名格式不对</em>
       </label>
@@ -98,6 +99,7 @@ export default {
           });
           if (result.data.success) {
             alert(result.data.message);
+            this.$router.replace({ name: "login" });
           } else {
             alert(result.data.message);
           }

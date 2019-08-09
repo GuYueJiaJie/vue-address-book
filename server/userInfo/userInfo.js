@@ -39,9 +39,9 @@ const userInfo = {
     let hasUser = _this.userInfos.some(
       item => item.username === username && item.password === password
     );
-    let personalData = _this.userData.find(item => item.username === username)
-      .personalData;
     if (hasUser) {
+      let personalData = _this.userData.find(item => item.username === username)
+        .personalData;
       console.log(`-----登录了新用户${username}-----`);
       return {
         success: true,

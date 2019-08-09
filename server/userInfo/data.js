@@ -1,17 +1,20 @@
+const Mock = require("mockjs");
+
 class UserData {
   constructor(username) {
     this.username = username;
     this.nickName = username;
     this.phoneNumber = "无";
-    this.contactLists = [
-      { name: "妈妈", phone: "12345678901", id: 0, classify: "family" },
-      { name: "爸爸", phone: "98765432101", id: 1, classify: "family" },
-      { name: "王甲", phone: "17652437976", id: 2, classify: "friend" },
-      { name: "赵乙", phone: "98765375458", id: 3, classify: "friend" },
-      { name: "李三", phone: "12345678901", id: 4, classify: "colleague" },
-      { name: "朱六", phone: "98765432101", id: 5, classify: "colleague" },
-      { name: "王麻子", phone: "17652437976", id: 6, classify: "colleague" }
-    ];
+    this.contactLists = Mock.mock({
+      "array|4-20": [
+        {
+          name: "@cname",
+          phone: /^1[3456789]\d{9}$/,
+          id: "@guid",
+          "classify|1": ["friend", "colleague", "family"]
+        }
+      ]
+    }).array;
   }
 
   addContact({ name, phone, classify, id }) {

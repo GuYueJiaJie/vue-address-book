@@ -11,8 +11,9 @@
           required
           size="20"
           v-model="userParams.username"
-          @click="loginFail = false"
+          @click="clickUsername"
         />
+        <em v-show="showmessage.username">*用户名格式不对</em>
       </label>
       <label for="password">
         <input
@@ -24,8 +25,9 @@
           required
           size="20"
           v-model="userParams.password"
-          @click="loginFail = false"
+          @click="clickPassword"
         />
+        <em v-show="showmessage.password">*密码格式不对</em>
       </label>
       <div class="loginFail" :class="{isActive: !loginFail}">用户名/密码错误</div>
       <button class="button" @click.prevent="login">
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data: function() {
@@ -48,37 +50,55 @@ export default {
         password: ""
       },
       loginFail: false,
-      loginFailMessage: ""
+      loginFailMessage: "",
+      showmessage: {
+        username: false,
+        password: false
+      }
     };
   },
   methods: {
-    ...mapMutations("addressBook", [
-      "setItems",
-      "setUsername",
-      "changePersonalInfo"
-    ]),
+    ...mapActions("addressBook", ["initState"]),
+    verifyUsername() {
+      let isRight = /\w{5,20}/.test(this.userParams.username);
+      this.showmessage.username = !isRight;
+    },
+    verifyPawword() {
+      let isRight = /\w{5,20}/.test(this.userParams.password);
+      this.showmessage.password = !isRight;
+    },
+    clickUsername() {
+      this.loginFail = false;
+      this.loginFail = false;
+      this.showmessage.username = false;
+    },
+    clickPassword() {
+      this.loginFail = false;
+      this.showmessage.password = false;
+    },
     async login(e) {
       try {
         this.showIcon = true;
-        // axios返回的是Promise
-        let result = await this.$http.post("/user/login", {
-          username: this.userParams.username,
-          password: this.userParams.password
-        });
-        console.log(result);
-        if (result.data.code === 1) {
-          this.showIcon = false;
-          this.setItems(result.data.personalData.contactLists);
-          this.changePersonalInfo({
-            nickName: result.data.personalData.nickName,
-            phoneNumber: result.data.personalData.phoneNumber
+        this.verifyUsername();
+        this.verifyPawword();
+        if (!this.showmessage.username && !this.showmessage.password) {
+          // axios返回的是Promise
+          let result = await this.$http.post("/user/login", {
+            username: this.userParams.username,
+            password: this.userParams.password
           });
-          this.setUsername(result.data.username);
-          this.$router.replace({ path: "/address-book" });
+          if (result.data.code === 1) {
+            this.showIcon = false;
+            this.initState(result.data);
+            localStorage.setItem("token", result.data.token);
+            this.$router.replace({ path: "/address-book" });
+          } else {
+            this.showIcon = false;
+            this.loginFail = true;
+            this.loginFailMessage = result.data.message;
+          }
         } else {
           this.showIcon = false;
-          this.loginFail = true;
-          this.loginFailMessage = result.data.message;
         }
       } catch (err) {
         console.error(err);
