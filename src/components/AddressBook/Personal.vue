@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -40,7 +40,6 @@ export default {
       },
       set(value) {
         this.setNickName = true;
-        console.log(1111, value);
         this.temporaryNickName = value;
       }
     },
@@ -50,7 +49,6 @@ export default {
       },
       set(value) {
         this.setPhoneNumber = true;
-        console.log(2, value);
         this.temporaryPhoneNumber = value;
       }
     }
@@ -152,4 +150,3 @@ export default {
   color: #fff;
 }
 </style>
-

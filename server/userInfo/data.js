@@ -1,7 +1,7 @@
 class UserData {
   constructor(username) {
     this.username = username;
-    this.nickName = "无名氏";
+    this.nickName = username;
     this.phoneNumber = "无";
     this.contactLists = [
       { name: "妈妈", phone: "12345678901", id: 0, classify: "family" },

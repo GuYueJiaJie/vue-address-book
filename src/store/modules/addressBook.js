@@ -27,10 +27,8 @@ const mutations = {
     state.items.push(item);
   },
   changePersonalInfo(state, item) {
-    console.log("修改了个人信息");
     state.nickName = item.nickName;
     state.phoneNumber = item.phoneNumber;
-    console.log(state);
   }
 };
 

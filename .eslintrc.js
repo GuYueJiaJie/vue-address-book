@@ -8,7 +8,7 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     quotes: [1, "double"],
-    semi: [1, "always", { omitLastInOneLineBlock: true }],
+    semi: [0, "always", { omitLastInOneLineBlock: true }],
     "space-before-function-paren": ["off", "always"]
   },
   parserOptions: {

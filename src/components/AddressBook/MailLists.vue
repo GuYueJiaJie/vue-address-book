@@ -6,7 +6,7 @@
         <i class="fa fa-search"></i>
       </span>
     </div>
-    <p class="total">共有{{listArr.length}}个联系人</p>
+    <p class="total">共有{{latestItems.length}}个联系人</p>
     <div class="classify total">
       <label for="all">
         <input type="radio" name="contacts" id="all" checked @click="classifyId='all'" />所有联系人
@@ -22,20 +22,20 @@
       </label>
     </div>
     <div class="total contact-lists" v-if="hasInfo">
-      <ContactLists
-        v-for="item in latestItems"
-        :key="item.id"
-        :item="item"
-        @change-item="changeItemAsync"
-        @delete-item="deleteItemAsync({id: item.id})"
-      ></ContactLists>
+        <ContactLists
+          v-for="item in latestItems"
+          :key="item.id"
+          :item="item"
+          @change-item="changeItemAsync"
+          @delete-item="deleteItemAsync({id: item.id})"
+        ></ContactLists>
     </div>
     <p class="total no-contact" v-else>没有联系人</p>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import ContactLists from "./ContactLists";
 export default {
   components: {
@@ -45,8 +45,7 @@ export default {
     return {
       search: "",
       hasInfo: true,
-      classifyId: "all",
-      listArr: []
+      classifyId: "all"
     };
   },
   computed: {
@@ -58,34 +57,28 @@ export default {
         return "";
       }
       switch (this.classifyId) {
-        case "all":
-          this.listArr = this.search
+        case "family":
+          return this.search
+            ? this.fileterLists("family").filter(
+              item => item.name.indexOf(this.search) > -1
+            )
+            : this.fileterLists("family");
+        case "friend":
+          return this.search
+            ? this.fileterLists("friend").filter(
+              item => item.name.indexOf(this.search) > -1
+            )
+            : this.fileterLists("friend");
+        case "colleague":
+          return this.search
+            ? this.fileterLists("colleague").filter(
+              item => item.name.indexOf(this.search) > -1
+            )
+            : this.fileterLists("colleague");
+        default:
+          return this.search
             ? this.items.filter(item => item.name.indexOf(this.search) > -1)
             : this.items;
-          return this.listArr;
-        case "family":
-          this.listArr = this.search
-            ? this.fileterLists("family").filter(
-                item => item.name.indexOf(this.search) > -1
-              )
-            : this.fileterLists("family");
-          return this.listArr;
-        case "friend":
-          this.listArr = this.search
-            ? this.fileterLists("friend").filter(
-                item => item.name.indexOf(this.search) > -1
-              )
-            : this.fileterLists("friend");
-          return this.listArr;
-        case "colleague":
-          this.listArr = this.search
-            ? this.fileterLists("colleague").filter(
-                item => item.name.indexOf(this.search) > -1
-              )
-            : this.fileterLists("colleague");
-          return this.listArr;
-        default:
-          break;
       }
     }
   },
