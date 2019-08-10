@@ -1,5 +1,6 @@
 .container {
   margin: 5rem auto;
+  position: relative;
 }
 
 .container label {

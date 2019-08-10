@@ -1,6 +1,10 @@
 const tokenCheck = {
-  setToken({ username, password }) {
-    return `${username}-${password}-${Date.now() + 60 * 1000 * 10}`;
+  setToken({ username, password, avoidLogin }) {
+    if (avoidLogin) {
+      return `${username}-${password}-${Date.now() + 60 * 1000 * 60 * 24 * 7}`;
+    } else {
+      return `${username}-${password}-${Date.now() + 60 * 1000 * 10}`;
+    }
   },
   judgeTokenIsOverdue(token) {
     let deadline = token.split("-")[2];

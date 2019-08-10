@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div class="loginFail" :class="{isActive: !loginFail}">用户名/密码错误</div>
     <form class="login-form">
       <label for="username">
         <input
@@ -29,7 +30,10 @@
         />
         <em v-show="showmessage.password">*密码格式不对</em>
       </label>
-      <div class="loginFail" :class="{isActive: !loginFail}">用户名/密码错误</div>
+      <label for="avoidLogin" class="avoidLogin">
+        <input type="checkbox" name="avoidLogin" id="avoidLogin" v-model="avoidLogin" />
+        七天之内免登录
+      </label>
       <button class="button" @click.prevent="login">
         登 录
         <i class="fa fa-spinner fa-spin" v-show="showIcon"></i>
@@ -54,7 +58,8 @@ export default {
       showmessage: {
         username: false,
         password: false
-      }
+      },
+      avoidLogin: false
     };
   },
   methods: {
@@ -85,7 +90,8 @@ export default {
           // axios返回的是Promise
           let result = await this.$http.post("/user/login", {
             username: this.userParams.username,
-            password: this.userParams.password
+            password: this.userParams.password,
+            avoidLogin: this.avoidLogin
           });
           if (result.data.code === 1) {
             this.showIcon = false;
@@ -112,10 +118,16 @@ export default {
 @import "../../assets/css/login.css";
 .loginFail {
   color: red;
-  margin: 10px auto;
   font-size: 2rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  /* top: -3.5rem; */
 }
 .isActive {
   visibility: hidden;
+}
+.avoidLogin {
+  margin: 1rem auto;
 }
 </style>

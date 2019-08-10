@@ -149,6 +149,5 @@ export default {
   overflow: auto;
   white-space: nowrap;
   max-height: 400px;
-  
 }
 </style>
