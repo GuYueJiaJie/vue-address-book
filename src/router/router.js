@@ -62,6 +62,11 @@ const router = new Router({
           }
         }
       ]
+    },
+    {
+      path: "*",
+      name: "404",
+      component: () => import("../components/404.vue")
     }
   ]
 });

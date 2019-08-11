@@ -8,7 +8,6 @@ const tokenCheck = require("./api/token");
 
 const app = express();
 
-app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
@@ -42,6 +41,8 @@ app.use(function(req, res, next) {
   }
 });
 
+app.use(bodyParser.json());
+
 app.post("/user/login", function(req, res) {
   let loginInfo = userInfo.login(req.body);
   if (loginInfo.success) {
@@ -74,7 +75,7 @@ app.post("/user/register", function(req, res) {
   }
 });
 
-// 登录状态验证
+// 登录状态验证，因为登录注册不需要验证，所以从这登录注册之后开始
 app.use(function(req, res, next) {
   let token =
     req.get("Authorization") ||

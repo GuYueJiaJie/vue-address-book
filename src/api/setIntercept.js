@@ -7,7 +7,8 @@ export default function axiosIntercept() {
     function(config) {
       config.url = "http://localhost:9999" + config.url;
       if (localStorage.getItem("token")) {
-        config.headers.Authorization = localStorage.getItem("token");
+        config.headers.Authorization =
+          "Bearer " + localStorage.getItem("token");
       }
       console.log("request", config);
       return config;

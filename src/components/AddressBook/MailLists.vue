@@ -83,10 +83,6 @@ export default {
     }
   },
   methods: {
-    // ...mapMutations("addressBook", {
-    //   changeItem: "changeItem",
-    //   deleteItem: "deleteItem"
-    // }),
     ...mapActions("addressBook", {
       deleteItemAsync: "deleteItemAsync",
       changeItemAsync: "changeItemAsync"
@@ -149,5 +145,12 @@ export default {
   overflow: auto;
   white-space: nowrap;
   max-height: 400px;
+}
+
+input[name="contacts"] {
+  cursor: pointer;
+}
+.classify label {
+  cursor: pointer;
 }
 </style>

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -50,11 +50,13 @@ export default {
     ...mapState("addressBook", ["nickName"])
   },
   methods: {
+    ...mapMutations("addressBook", ["changeLoginState"]),
     logOut() {
       this.$router.replace({ path: "/home/login" });
       localStorage.removeItem("token");
       // 因为重新登录会重新从服务器获取信息并重新设置vuex，所以在这里删除sessionStorage中的state
       sessionStorage.removeItem("state");
+      this.changeLoginState(false); // 将登录状态置为false
     }
   },
   mounted() {
@@ -163,5 +165,8 @@ export default {
   right: 5rem;
   font-size: 2.5rem;
   cursor: pointer;
+}
+.log-out:hover {
+  border: 1px dashed blue;
 }
 </style>

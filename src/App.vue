@@ -13,7 +13,10 @@ export default {
       this.$store.replaceState(JSON.parse(sessionStorage.getItem("state")));
     }
     window.addEventListener("beforeunload", event => {
-      sessionStorage.setItem("state", JSON.stringify(_this.$store.state));
+      if (this.$store.state.addressBook.isLogining) {
+        console.log(this.$store.state.addressBook.isLogining);
+        sessionStorage.setItem("state", JSON.stringify(_this.$store.state));
+      }
     });
   }
 };

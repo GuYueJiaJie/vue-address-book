@@ -7,23 +7,35 @@
         <input type />
       </li>-->
       <li>
-        <span class="left-info">姓名</span>
-        <input class="right-info right-input" type="text" v-model="name" placeholder="请添加联系人姓名" />
+        <label class="left-info" for="username">姓名</label>
+        <input
+          class="right-info right-input"
+          type="text"
+          v-model="name"
+          placeholder="请添加联系人姓名"
+          id="username"
+        />
         <span class="clear-icon" :class="{active: showIconName}" @click="clearName">
           <i class="fa fa-times" aria-hidden="true"></i>
         </span>
         <!-- <span class="reminder" v-show="showNameReminder">*姓名不能为空</span> -->
       </li>
       <li>
-        <span class="left-info">电话号码</span>
-        <input class="right-info right-input" type="text" v-model="phone" placeholder="请添加联系人号码" />
+        <label class="left-info" for="phoneNumber">电话号码</label>
+        <input
+          class="right-info right-input"
+          type="text"
+          v-model="phone"
+          placeholder="请添加联系人号码"
+          id="phoneNumber"
+        />
         <span class="clear-icon" :class="{active: showIconPhone}" @click="clearPhone">
           <i class="fa fa-times" aria-hidden="true"></i>
         </span>
         <!-- <span class="reminder" v-show="showPhoneReminder">*电话号码不能为空</span> -->
       </li>
       <li>
-        <span class="left-info">与我的关系</span>
+        <label class="left-info" for="relation">与我的关系</label>
         <select name="relation" id="relation" class="right-info right-select" v-model="selected">
           <option value="family">家人</option>
           <option value="friend">朋友</option>

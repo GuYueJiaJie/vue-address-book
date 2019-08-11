@@ -5,7 +5,8 @@ const state = {
   username: "",
   nickName: "",
   phoneNumber: "无",
-  token: ""
+  token: "",
+  isLogining: "" // true表示已经登陆
 };
 
 const mutations = {
@@ -33,6 +34,9 @@ const mutations = {
   },
   setToken(state, token) {
     state.token = token;
+  },
+  changeLoginState(state, flag) {
+    state.isLogining = flag;
   }
 };
 
@@ -109,6 +113,7 @@ const actions = {
     });
     commit("setUsername", item.username);
     commit("setToken", item.token);
+    commit("changeLoginState", true);
   }
 };
 
