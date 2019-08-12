@@ -41,7 +41,7 @@
    npm run serve
    ```
 
-4. 安装服务的依赖，并启动服务
+4. 打开新的命令行，安装服务的依赖，并启动服务
 
    ```
    cd server
@@ -103,7 +103,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/user/login' from origin 'http
 
 具体关于 CORS 跨域问题请参考：[跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html).
 
-```
+```javascript
 // server.js
 app.use(function(req, res, next) {
   // 处理来自非简单请求的预检请求
@@ -141,7 +141,7 @@ app.use(function(req, res, next) {
 
 `package.json`中已经引入了`mockjs`，直接安装依赖即可，具体使用方法可以参照[`Mock.js`文档](http://mockjs.com/)。
 
-```
+```javascript
 // 生成4-20个随机的联系人数据
 Mock.mock({
   "array|4-20": [
@@ -152,7 +152,7 @@ Mock.mock({
       "classify|1": ["friend", "colleague", "family"]
     }
   ]
-})
+});
 ```
 
 ### 3. JWT 认证
