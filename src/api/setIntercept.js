@@ -24,7 +24,8 @@ export default function axiosIntercept() {
       return response;
     },
     function(err) {
-      if (err.response.status === 401) {
+      console.log("响应拦截里的error", err.response);
+      if (err.response && err.response.status === 401) {
         console.log("token过期,请重新登陆,删除token");
         localStorage.removeItem("token");
         // 因为重新登录会重新从服务器获取信息并重新设置vuex，所以在这里删除sessionStorage中的state

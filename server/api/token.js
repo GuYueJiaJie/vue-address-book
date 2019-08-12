@@ -23,15 +23,6 @@ const tokenCheck = {
   },
   judgeTokenIsOverdue(token) {
     let realToken = token.split(" ")[1];
-    // let deadline = token.split("-")[2];
-    // console.log("deadline", deadline);
-    // if (Date.now() > deadline) {
-    //   // 表示已经过期
-    //   return true;
-    // } else {
-    //   // 表示还未过期
-    //   return false;
-    // }
     try {
       // decode没有抛出错误就表示合法性验证通过
       console.log("jwt验证登录状态");

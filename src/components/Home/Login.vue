@@ -107,6 +107,7 @@ export default {
           this.showIcon = false;
         }
       } catch (err) {
+        console.log("捕获到了错误");
         console.error(err);
       }
     }

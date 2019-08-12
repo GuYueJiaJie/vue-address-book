@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
     if (cors.isTrustyOrigin(origin)) {
       res.set({
         "Access-Control-Allow-Origin": origin,
-        "Access-Control-Allow-Method": "POST",
+        "Access-Control-Allow-Methods": "POST",
         "Access-Control-Allow-Headers": customHeader,
         "Access-Control-Allow-Credentials": true,
         "Access-Control-Max-Age": 600
