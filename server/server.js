@@ -84,9 +84,11 @@ app.use(function(req, res, next) {
     req.get("x-access-token");
   // 判断有没有token,存在就判断是否过期
   if (token) {
-    let passTime = tokenCheck.judgeTokenIsOverdue(token);
+    let { passTime, payload } = tokenCheck.judgeTokenIsOverdue(token);
     if (!passTime) {
       console.log("token没有过期");
+      req.userPayload = payload;
+      req.userToken = token;
       next();
     } else {
       // 401表示用户视图未经授权访问一个受密码保护的页面，应答中会包含一个WWW-Authenticate头
@@ -97,6 +99,16 @@ app.use(function(req, res, next) {
     console.log("没有token");
     res.status(401).end();
   }
+});
+
+app.get("/api/getInfo", function(req, res) {
+  let username = req.userPayload.username;
+  let personalData = userInfo.searchPersonalInfo({ username });
+  res.status(200).json({
+    personalData: personalData,
+    username: username,
+    token: req.userToken
+  });
 });
 
 app.post("/api/addContact", function(req, res) {

@@ -84,6 +84,12 @@ const userInfo = {
     let personalData = _this.userData.find(item => item.username === username)
       .personalData;
     personalData.changePersonalInfo({ nickName, phoneNumber });
+  },
+  searchPersonalInfo({ username }) {
+    const _this = this;
+    let personalData = _this.userData.find(item => item.username === username)
+      .personalData;
+    return personalData;
   }
 };
 

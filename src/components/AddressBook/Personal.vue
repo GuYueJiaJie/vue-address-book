@@ -68,12 +68,6 @@ export default {
           ? this.temporaryPhoneNumber
           : this.phoneNumber
       });
-      // this.$store.commit("addressBook/changePersonalInfo", {
-      //   nickName: this.setNickName ? this.temporaryNickName : this.nickName,
-      //   phoneNumber: this.setPhoneNumber
-      //     ? this.temporaryPhoneNumber
-      //     : this.phoneNumber
-      // });
     },
     back() {
       this.isEdit = false;
